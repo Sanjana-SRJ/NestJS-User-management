@@ -1,17 +1,16 @@
 import { Module } from '@nestjs/common';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
-import { BlockService } from './block.service';
-import { BlockController } from './block.controller';
+import { BlockService } from '../blocks/block.service';
+import { BlockController } from '../blocks/block.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Ignore } from '../database/ignore.schema';
-import { User } from '../database/users.schema';
+import { Ignore, IgnoreSchema } from '../database/ignore.schema';
+import { User, UserSchema } from '../database/users.schema';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/mydatabase'),
-    MongooseModule.forFeature([{ name: User.name, schema: User.schema }]),
-    MongooseModule.forFeature([{ name: Ignore.name, schema: Ignore.schema }])
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: Ignore.name, schema: IgnoreSchema }])
   ],
   controllers: [UsersController, BlockController],
   providers: [UsersService, BlockService],
